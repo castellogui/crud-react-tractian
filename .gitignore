@@ -24,3 +24,6 @@ dist-ssr
 *.sw?
 
 users.json
+assets.json
+units.json
+companies.json
