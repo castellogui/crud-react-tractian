@@ -3,22 +3,39 @@ import Search from "antd/es/input/Search";
 import { useState } from "react";
 import { useQuery } from "react-query";
 import assets from "../assets/assets.json";
+import { SearchableList } from "../interfaces/components/searchableList.interface";
+import { Asset } from "../interfaces/model/asset.interface";
+import { Unit } from "../interfaces/model/unit.interface";
 
-export default function SearchableListAssets() {
+export default function SearchableListAssets(props: SearchableList) {
   const data = assets;
   const [searchTerm, setSearchTerm] = useState("");
-  const dataFiltered = data.filter((asset) => {
-    return (
-      `${asset.name}`.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      `${asset.unit.name}`.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      `${asset.status}`.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      `${asset.owner.name}`.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      `${asset.model}`.toLowerCase().includes(searchTerm.toLowerCase())
-    );
-  });
+  const dataFiltered = filterDataByUnit(props.unitState, data);
 
   function callbackSearchTerm(e: React.ChangeEvent<HTMLInputElement>) {
     setSearchTerm(e.target.value);
+  }
+
+  function filterDataByUnit(unitState: Unit, data: Array<Asset>) {
+    return data.filter((asset: Asset) => {
+      if (unitState != undefined) {
+        return (
+          (`${asset.name}`.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            `${asset.unit.name}`.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            `${asset.status}`.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            `${asset.owner.name}`.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            `${asset.model}`.toLowerCase().includes(searchTerm.toLowerCase())) &&
+          asset.unit.name == unitState.name
+        );
+      }
+      return (
+        `${asset.name}`.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        `${asset.unit.name}`.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        `${asset.status}`.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        `${asset.owner.name}`.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        `${asset.model}`.toLowerCase().includes(searchTerm.toLowerCase())
+      );
+    });
   }
 
   return (

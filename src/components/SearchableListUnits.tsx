@@ -3,19 +3,32 @@ import Search from "antd/es/input/Search";
 import { useState } from "react";
 import { useQuery } from "react-query";
 import units from "../assets/units.json";
+import { SearchableList } from "../interfaces/components/searchableList.interface";
+import { Unit } from "../interfaces/model/unit.interface";
 
-export default function SearchableListUnits() {
+export default function SearchableListUnits(props: SearchableList) {
   const data = units;
   const [searchTerm, setSearchTerm] = useState("");
-  const dataFiltered = data.filter((unit) => {
-    return (
-      `${unit.name}`.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      `${unit.company.name}`.toLowerCase().includes(searchTerm.toLowerCase())
-    );
-  });
+  const dataFiltered = filterDataByUnit(props.unitState, data);
 
   function callbackSearchTerm(e: React.ChangeEvent<HTMLInputElement>) {
     setSearchTerm(e.target.value);
+  }
+
+  function filterDataByUnit(unitState: Unit, data: Array<Unit>) {
+    return data.filter((unit: Unit) => {
+      if (unitState != undefined) {
+        return (
+          (`${unit.name}`.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            `${unit.company.name}`.toLowerCase().includes(searchTerm.toLowerCase())) &&
+          unit.company.name == unitState.company.name
+        );
+      }
+      return (
+        `${unit.name}`.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        `${unit.company.name}`.toLowerCase().includes(searchTerm.toLowerCase())
+      );
+    });
   }
 
   return (

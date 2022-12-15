@@ -3,20 +3,34 @@ import Search from "antd/es/input/Search";
 import { useState } from "react";
 import { useQuery } from "react-query";
 import users from "../assets/users.json";
+import { SearchableList } from "../interfaces/components/searchableList.interface";
+import { Unit } from "../interfaces/model/unit.interface";
+import { User } from "../interfaces/model/user.interface";
 
-export default function SearchableListUsers() {
+export default function SearchableListUsers(props: SearchableList) {
   const data = users;
   const [searchTerm, setSearchTerm] = useState("");
-  const dataFiltered = data.filter((user) => {
-    return (
-      user.company.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      `${user.name} ${user.familyName}`.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      user.email.toLowerCase().includes(searchTerm.toLowerCase())
-    );
-  });
+  const dataFiltered = filterDataByUnit(props.unitState, data);
 
   function callbackSearchTerm(e: React.ChangeEvent<HTMLInputElement>) {
     setSearchTerm(e.target.value);
+  }
+
+  function filterDataByUnit(unitState: Unit, data: Array<User>) {
+    return data.filter((user: User) => {
+      if (unitState != undefined) {
+        return (
+          (`${user.name} ${user.familyName}`.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            user.email.toLowerCase().includes(searchTerm.toLowerCase())) &&
+          user.company.name == unitState.company.name
+        );
+      }
+      return (
+        user.company.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        `${user.name} ${user.familyName}`.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        user.email.toLowerCase().includes(searchTerm.toLowerCase())
+      );
+    });
   }
 
   return (
@@ -35,7 +49,7 @@ export default function SearchableListUsers() {
             <List.Item.Meta
               avatar={<Avatar src={item.avatar} />}
               title={`${item.name} ${item.familyName}`}
-              description={item.email}
+              description={`${item.email} | ${item.company.name}`}
             />
             <div>
               <Button type="primary" block style={{ backgroundColor: "#245ce4" }}>
