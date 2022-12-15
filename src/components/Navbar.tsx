@@ -1,4 +1,30 @@
-import { MenuOutlined } from "@ant-design/icons";
+import { MenuOutlined, UserOutlined, DownOutlined } from "@ant-design/icons";
+import Button from "antd/es/button";
+import { Dropdown, MenuProps, Space } from "antd";
+
+const items: MenuProps["items"] = [
+  {
+    label: "1st menu item",
+    key: "1124124124",
+  },
+  {
+    label: "2nd menu item",
+    key: "2",
+  },
+  {
+    label: "3rd menu item",
+    key: "3",
+  },
+];
+
+const handleMenuClick: MenuProps["onClick"] = (e) => {
+  console.log("click", e);
+};
+
+const menuProps = {
+  items,
+  onClick: handleMenuClick,
+};
 
 interface NavbarProps {
   openSidebarFunction: Function;
@@ -13,7 +39,17 @@ export default function Navbar(props: NavbarProps) {
           props.openSidebarFunction(true);
         }}
       ></MenuOutlined>
-      <div className="w-max h-12 flex flex-row text-center ">
+      <div className="w-max h-12 flex flex-row text-center items-center ">
+        <div className="mx-8">
+          <Dropdown menu={menuProps}>
+            <Button>
+              <Space>
+                Units
+                <DownOutlined />
+              </Space>
+            </Button>
+          </Dropdown>
+        </div>
         <div className="w-max h-full flex flex-col">
           <div className="w-full h-full">
             <span className="w-full h-full text-left font-medium">Unidade Mooca</span>
