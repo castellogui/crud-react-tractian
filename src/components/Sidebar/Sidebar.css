@@ -1,0 +1,25 @@
+
+.ant-menu-item, .ant-menu-inline>.ant-menu-submenu>.ant-menu-submenu-title{
+    color:white !important;
+    margin: 0 !important; 
+    padding-right: 0 !important;
+    border-radius: 0 !important;
+    width: calc(100% - 6px) !important;
+    transition: all .05s !important;
+    background-color: transparent !important;
+}
+
+.ant-menu-item-selected {
+    color: #20bd5a !important;
+    border-left: 6px solid #20bd5a !important;
+}
+
+.ant-menu-item:hover{
+    color: white !important;
+    border-left: 3px solid white !important;
+    transition-duration: 0ms !important;
+}
+
+
+
+
