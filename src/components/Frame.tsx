@@ -7,8 +7,8 @@ interface FrameProps {
 }
 
 const sizesH = {
-  "half-screen": "16rem",
-  "full-screen": "34rem",
+  "half-screen": "calc((100vh - 8rem) / 2)",
+  "full-screen": "calc(100vh - 8rem)",
 };
 
 export default function Frame(props: FrameProps) {
