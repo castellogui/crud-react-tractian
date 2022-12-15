@@ -18,9 +18,9 @@ export default function Navbar(props: NavbarProps) {
           <div className="w-full h-full">
             <span className="w-full h-full text-left font-medium">Unidade Mooca</span>
           </div>
-          <div className="w-full h-full flex flex-row">
-            <span className="w-full h-auto text-[#404040]">Conta</span>
-            <span className="w-full h-auto text-[#404040]">Sair</span>
+          <div className="w-full h-full flex flex-row gap-3">
+            <span className="w-full h-auto text-[#404040]">Account</span>
+            <span className="w-full h-auto text-[#404040]">Log off</span>
           </div>
         </div>
         <img
