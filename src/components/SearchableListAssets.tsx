@@ -1,17 +1,19 @@
-import { List, Avatar, Button } from "antd";
+import { List, Button } from "antd";
 import Search from "antd/es/input/Search";
 import { useState } from "react";
 import { useQuery } from "react-query";
-import users from "../assets/users.json";
+import assets from "../assets/assets.json";
 
-export default function SearchableListUsers() {
-  const data = users;
+export default function SearchableListAssets() {
+  const data = assets;
   const [searchTerm, setSearchTerm] = useState("");
-  const dataFiltered = data.filter((user) => {
+  const dataFiltered = data.filter((asset) => {
     return (
-      user.company.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      `${user.name} ${user.familyName}`.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      user.email.toLowerCase().includes(searchTerm.toLowerCase())
+      `${asset.name}`.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      `${asset.unit.name}`.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      `${asset.status}`.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      `${asset.owner.name}`.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      `${asset.model}`.toLowerCase().includes(searchTerm.toLowerCase())
     );
   });
 
@@ -22,7 +24,7 @@ export default function SearchableListUsers() {
   return (
     <>
       <Search
-        placeholder="Search user by name, email or company name."
+        placeholder="Search asset by name, unit name, status, owner name or model."
         onSearch={() => {}}
         onChange={callbackSearchTerm}
         style={{ width: "100%" }}
@@ -31,11 +33,10 @@ export default function SearchableListUsers() {
         style={{ overflowY: "scroll", overflowX: "hidden", height: "70%", marginTop: "0.8rem" }}
         dataSource={dataFiltered}
         renderItem={(item) => (
-          <List.Item key={item.email}>
+          <List.Item key={item.name}>
             <List.Item.Meta
-              avatar={<Avatar src={item.avatar} />}
-              title={`${item.name} ${item.familyName}`}
-              description={item.email}
+              title={`${item.name}`}
+              description={`${item.unit.name} | ${item.status} | ${item.owner.name} | ${item.model}`}
             />
             <div>
               <Button type="primary" block style={{ backgroundColor: "#245ce4" }}>

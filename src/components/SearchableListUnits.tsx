@@ -1,17 +1,16 @@
-import { List, Avatar, Button } from "antd";
+import { List, Button } from "antd";
 import Search from "antd/es/input/Search";
 import { useState } from "react";
 import { useQuery } from "react-query";
-import users from "../assets/users.json";
+import units from "../assets/units.json";
 
-export default function SearchableListUsers() {
-  const data = users;
+export default function SearchableListUnits() {
+  const data = units;
   const [searchTerm, setSearchTerm] = useState("");
-  const dataFiltered = data.filter((user) => {
+  const dataFiltered = data.filter((unit) => {
     return (
-      user.company.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      `${user.name} ${user.familyName}`.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      user.email.toLowerCase().includes(searchTerm.toLowerCase())
+      `${unit.name}`.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      `${unit.company.name}`.toLowerCase().includes(searchTerm.toLowerCase())
     );
   });
 
@@ -22,7 +21,7 @@ export default function SearchableListUsers() {
   return (
     <>
       <Search
-        placeholder="Search user by name, email or company name."
+        placeholder="Search unit by name or company name."
         onSearch={() => {}}
         onChange={callbackSearchTerm}
         style={{ width: "100%" }}
@@ -31,12 +30,8 @@ export default function SearchableListUsers() {
         style={{ overflowY: "scroll", overflowX: "hidden", height: "70%", marginTop: "0.8rem" }}
         dataSource={dataFiltered}
         renderItem={(item) => (
-          <List.Item key={item.email}>
-            <List.Item.Meta
-              avatar={<Avatar src={item.avatar} />}
-              title={`${item.name} ${item.familyName}`}
-              description={item.email}
-            />
+          <List.Item key={item.name}>
+            <List.Item.Meta title={`${item.name}`} description={`${item.company.name}`} />
             <div>
               <Button type="primary" block style={{ backgroundColor: "#245ce4" }}>
                 Edit
