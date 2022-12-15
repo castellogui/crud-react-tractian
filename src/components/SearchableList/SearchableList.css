@@ -1,9 +1,0 @@
-#root>div>div:nth-child(2)>div:nth-child(2)>span.ant-input-group-wrapper.ant-input-search.css-dev-only-do-not-override-26rdvq>span>span>button {
-    cursor: default;
-}
-
-#root>div>div:nth-child(2)>div:nth-child(2)>span.ant-input-group-wrapper.ant-input-search.css-dev-only-do-not-override-26rdvq>span>span>button:hover {
-    cursor: default;
-    color: rgba(0, 0, 0, 0.45);
-    border-color: rgba(0, 0, 0, 0.45);
-}
