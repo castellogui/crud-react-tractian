@@ -3,6 +3,8 @@ import Navbar from "../components/Navbar";
 import Sidebar from "../components/Sidebar";
 import Frame from "../components/Frame";
 import SearchableListUsers from "../components/SearchableListUsers";
+import SearchableListUnits from "../components/SearchableListUnits";
+import SearchableListAssets from "../components/SearchableListAssets";
 
 export default function Home() {
   const [visible, setVisible] = useState(false);
@@ -12,7 +14,10 @@ export default function Home() {
       <Sidebar visible={visible} callbackClose={setVisible}></Sidebar>
       <div className="flex flex-row justify-center">
         <Frame height="half-screen" width={46}>
-          <span className="title">Units</span>
+          <>
+            <span className="title">Units</span>
+            <SearchableListUnits></SearchableListUnits>
+          </>
         </Frame>
         <Frame height="half-screen" width={46}>
           <>
@@ -23,7 +28,10 @@ export default function Home() {
       </div>
       <div className="flex flex-row justify-center">
         <Frame height="half-screen" width={95}>
-          <span className="title">Assets</span>
+          <>
+            <span className="title">Assets</span>
+            <SearchableListAssets></SearchableListAssets>
+          </>
         </Frame>
       </div>
     </>
