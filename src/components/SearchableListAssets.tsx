@@ -1,12 +1,13 @@
-import { List, Button, Spin, Avatar } from "antd";
+import { List, Button, Spin, Avatar, Dropdown, Space, MenuProps } from "antd";
 import Search from "antd/es/input/Search";
 import { useState } from "react";
 import { useQuery } from "react-query";
 import { SearchableList } from "../interfaces/components/searchableList.interface";
 import { Asset } from "../interfaces/models/asset.interface";
 import { Unit } from "../interfaces/models/unit.interface";
-import { getAssetsData } from "../services/home";
+import { getAssetsData, getUnitsData } from "../services/home";
 import { connect } from "react-redux";
+import { DownOutlined } from "@ant-design/icons";
 
 function SearchableListAssets(props: SearchableList) {
   const { isLoading, data: assets } = useQuery<Asset[]>(
@@ -18,12 +19,40 @@ function SearchableListAssets(props: SearchableList) {
       enabled: props.userLogged.token! != undefined,
     }
   );
+
+  const { isLoading: isLoadingUnit, data: units } = useQuery<Unit[]>(
+    "getUnitsData",
+    async () => {
+      return await getUnitsData(props.userLogged.token!);
+    },
+    {
+      enabled: props.userLogged.token! != undefined,
+    }
+  );
   const [searchTerm, setSearchTerm] = useState("");
   const dataFiltered = filterDataByUnit(props.unitState, assets);
 
   function callbackSearchTerm(e: React.ChangeEvent<HTMLInputElement>) {
     setSearchTerm(e.target.value);
   }
+
+  const items: MenuProps["items"] = [];
+  units?.map((unit) => {
+    let unitOption = {
+      label: unit.name,
+      key: unit._id,
+    };
+    items.push(unitOption);
+  });
+
+  const handleMenuClick: MenuProps["onClick"] = (e) => {
+    let unitId = e.key;
+    //Request to change asset from unit
+  };
+  const menuProps = {
+    items,
+    onClick: handleMenuClick,
+  };
 
   function renderList() {
     return (
@@ -49,7 +78,19 @@ function SearchableListAssets(props: SearchableList) {
                 description={`${item.unit.name} | ${item.status} | ${item.owner.name} | ${item.model}`}
                 avatar={<Avatar src={item.avatar}></Avatar>}
               />
-              <div>
+              <div className="flex flex-row gap-3">
+                {props.changeOption ? (
+                  <>
+                    <Dropdown menu={menuProps}>
+                      <Button>
+                        <Space>
+                          Units
+                          <DownOutlined />
+                        </Space>
+                      </Button>
+                    </Dropdown>
+                  </>
+                ) : null}
                 <Button type="primary" block style={{ backgroundColor: "#245ce4" }}>
                   Edit
                 </Button>

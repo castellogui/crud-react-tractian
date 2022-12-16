@@ -24,6 +24,10 @@ function SearchableListUnits(props: SearchableList) {
     setSearchTerm(e.target.value);
   }
 
+  function setUserObject(unit: Unit) {
+    props.buttonFunction(unit);
+  }
+
   function renderList() {
     return (
       <>
@@ -41,11 +45,18 @@ function SearchableListUnits(props: SearchableList) {
             marginTop: "0.8rem",
           }}
           dataSource={dataFiltered}
-          renderItem={(item) => (
-            <List.Item key={item.name}>
-              <List.Item.Meta title={`${item.name}`} description={`${item.company.name}`} />
+          renderItem={(unit) => (
+            <List.Item key={unit.name}>
+              <List.Item.Meta title={`${unit.name}`} description={`${unit.company.name}`} />
               <div>
-                <Button type="primary" block style={{ backgroundColor: "#245ce4" }}>
+                <Button
+                  onClick={() => {
+                    setUserObject(unit);
+                  }}
+                  type="primary"
+                  block
+                  style={{ backgroundColor: "#245ce4" }}
+                >
                   Edit
                 </Button>
               </div>
