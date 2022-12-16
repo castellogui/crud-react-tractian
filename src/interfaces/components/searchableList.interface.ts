@@ -1,4 +1,4 @@
-import { Unit } from "../model/unit.interface";
+import { Unit } from "../models/unit.interface";
 
 export interface SearchableList {
   unitState: Unit;
