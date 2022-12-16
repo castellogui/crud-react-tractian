@@ -33,6 +33,10 @@ export default function SearchableListUsers(props: SearchableList) {
     });
   }
 
+  function setUserObject(user: User) {
+    props.buttonFunction(user);
+  }
+
   return (
     <>
       <Search
@@ -42,17 +46,29 @@ export default function SearchableListUsers(props: SearchableList) {
         style={{ width: "100%" }}
       />
       <List
-        style={{ overflowY: "scroll", overflowX: "hidden", height: "70%", marginTop: "0.8rem" }}
+        style={{
+          overflowY: "scroll",
+          overflowX: "hidden",
+          height: `${props.height}%`,
+          marginTop: "0.8rem",
+        }}
         dataSource={dataFiltered}
-        renderItem={(item) => (
-          <List.Item key={item.email}>
+        renderItem={(user) => (
+          <List.Item key={user.email}>
             <List.Item.Meta
-              avatar={<Avatar src={item.avatar} />}
-              title={`${item.name} ${item.familyName}`}
-              description={`${item.email} | ${item.company.name}`}
+              avatar={<Avatar src={user.avatar} />}
+              title={`${user.name} ${user.familyName}`}
+              description={`${user.email} | ${user.company.name}`}
             />
             <div>
-              <Button type="primary" block style={{ backgroundColor: "#245ce4" }}>
+              <Button
+                onClick={() => {
+                  setUserObject(user);
+                }}
+                type="primary"
+                block
+                style={{ backgroundColor: "#245ce4" }}
+              >
                 Edit
               </Button>
             </div>

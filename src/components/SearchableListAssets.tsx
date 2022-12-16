@@ -47,7 +47,12 @@ export default function SearchableListAssets(props: SearchableList) {
         style={{ width: "100%" }}
       />
       <List
-        style={{ overflowY: "scroll", overflowX: "hidden", height: "70%", marginTop: "0.8rem" }}
+        style={{
+          overflowY: "scroll",
+          overflowX: "hidden",
+          height: `${props.height}%`,
+          marginTop: "0.8rem",
+        }}
         dataSource={dataFiltered}
         renderItem={(item) => (
           <List.Item key={item.name}>
