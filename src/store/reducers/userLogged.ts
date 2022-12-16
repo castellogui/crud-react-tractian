@@ -1,6 +1,6 @@
 import { logUser } from "../../interfaces/actions/actions.interface";
 import { User } from "../../interfaces/models/user.interface";
-import { LOG_USER } from "../actions/actionTypes";
+import { LOG_OFF_USER, LOG_USER } from "../actions/actionTypes";
 
 const initialState: User = {
   _id: "",
@@ -52,6 +52,8 @@ export const userLoggedReducer = (state = initialState, action: logUser) => {
           token: action.payload.token,
         };
       }
+      return initialState;
+    case LOG_OFF_USER:
       return initialState;
     default:
       return state;
