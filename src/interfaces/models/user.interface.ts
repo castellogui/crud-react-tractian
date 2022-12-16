@@ -21,4 +21,5 @@ export interface User {
   };
   type: string[];
   __v: number;
+  token?: string;
 }
