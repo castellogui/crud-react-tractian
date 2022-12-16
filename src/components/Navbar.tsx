@@ -86,7 +86,7 @@ function Navbar(props: NavbarProps) {
             </div>
           </div>
           <img
-            src="https://cdn.lorem.space/images/face/.cache/200x200/charles-etoroma-95UF6LXe-Lo-unsplash.jpg"
+            src={props.userLogged.avatar}
             alt="logged-profile-avatar"
             className="w-auto h-full rounded-full mx-4 "
           />
