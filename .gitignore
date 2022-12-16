@@ -27,3 +27,5 @@ users.json
 assets.json
 units.json
 companies.json
+
+.env
