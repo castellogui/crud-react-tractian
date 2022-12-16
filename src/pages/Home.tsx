@@ -6,28 +6,31 @@ import SearchableListUsers from "../components/SearchableListUsers";
 import SearchableListUnits from "../components/SearchableListUnits";
 import SearchableListAssets from "../components/SearchableListAssets";
 import units from "../assets/units.json";
+import { connect } from "react-redux";
+import { Unit } from "../interfaces/models/unit.interface";
 
-export default function Home() {
+interface HomeProps {
+  unit: Unit;
+}
+
+function Home(props: HomeProps) {
   const [visible, setVisible] = useState(false);
-  const unit = units.filter((unit) => {
-    return unit._id == "639a04347fda470883d20fd5";
-  })[0];
 
   return (
     <>
       <Navbar openSidebarFunction={setVisible}></Navbar>
       <Sidebar visible={visible} callbackClose={setVisible}></Sidebar>
       <div className="flex flex-row justify-center">
-        <Frame height="half-screen" width={46}>
+        <Frame height="half-screen" width={46.5}>
           <>
             <span className="title">Units</span>
-            <SearchableListUnits unitState={unit}></SearchableListUnits>
+            <SearchableListUnits unitState={props.unit}></SearchableListUnits>
           </>
         </Frame>
-        <Frame height="half-screen" width={46}>
+        <Frame height="half-screen" width={46.5}>
           <>
             <span className="title">Users</span>
-            <SearchableListUsers unitState={unit}></SearchableListUsers>
+            <SearchableListUsers unitState={props.unit}></SearchableListUsers>
           </>
         </Frame>
       </div>
@@ -35,10 +38,16 @@ export default function Home() {
         <Frame height="half-screen" width={95}>
           <>
             <span className="title">Assets</span>
-            <SearchableListAssets unitState={unit}></SearchableListAssets>
+            <SearchableListAssets unitState={props.unit}></SearchableListAssets>
           </>
         </Frame>
       </div>
     </>
   );
 }
+
+const MapStateToProps = (state: any) => ({
+  unit: state.unitState,
+});
+
+export default connect(MapStateToProps)(Home);
