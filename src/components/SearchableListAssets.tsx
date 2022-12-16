@@ -4,8 +4,8 @@ import { useState } from "react";
 import { useQuery } from "react-query";
 import assets from "../assets/assets.json";
 import { SearchableList } from "../interfaces/components/searchableList.interface";
-import { Asset } from "../interfaces/model/asset.interface";
-import { Unit } from "../interfaces/model/unit.interface";
+import { Asset } from "../interfaces/models/asset.interface";
+import { Unit } from "../interfaces/models/unit.interface";
 
 export default function SearchableListAssets(props: SearchableList) {
   const data = assets;

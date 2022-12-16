@@ -4,8 +4,8 @@ import { useState } from "react";
 import { useQuery } from "react-query";
 import users from "../assets/users.json";
 import { SearchableList } from "../interfaces/components/searchableList.interface";
-import { Unit } from "../interfaces/model/unit.interface";
-import { User } from "../interfaces/model/user.interface";
+import { Unit } from "../interfaces/models/unit.interface";
+import { User } from "../interfaces/models/user.interface";
 
 export default function SearchableListUsers(props: SearchableList) {
   const data = users;
