@@ -1,26 +1,26 @@
-.wave{
-    scale: 1.2;
-    animation: moveWave 10s ease-in-out infinite alternate ;
+.wave {
+  scale: 1.2;
+  animation: moveWave 10s ease-in-out infinite alternate;
 }
 
 .wave2 {
-    scale: 1.2;
-    animation: moveWave2 12s ease-in-out infinite alternate;
+  scale: 1.2;
+  animation: moveWave2 12s ease-in-out infinite alternate;
 }
 
 .wave3 {
-    scale: 1.2;
-    animation: moveWave 14s ease-in-out infinite alternate;
+  scale: 1.2;
+  animation: moveWave 14s ease-in-out infinite alternate;
 }
 
 @keyframes moveWave {
-    from{
-        transform: translateX(150px);
-    }
+  from {
+    transform: translateX(90px);
+  }
 }
 
 @keyframes moveWave2 {
-    from {
-        transform: translateX(-150px);
-    }
+  from {
+    transform: translateX(-150px);
+  }
 }
