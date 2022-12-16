@@ -1,5 +1,3 @@
-import { useState } from "react";
-import Navbar from "../components/Navbar";
 import Sidebar from "../components/Sidebar";
 import Frame from "../components/Frame";
 import SearchableListUsers from "../components/SearchableListUsers";
@@ -14,23 +12,19 @@ interface HomeProps {
 }
 
 function Home(props: HomeProps) {
-  const [visible, setVisible] = useState(false);
-
   return (
     <>
-      <Navbar openSidebarFunction={setVisible}></Navbar>
-      <Sidebar visible={visible} callbackClose={setVisible}></Sidebar>
       <div className="flex flex-row justify-center">
         <Frame height="half-screen" width={46.5}>
           <>
             <span className="title">Units</span>
-            <SearchableListUnits unitState={props.unit}></SearchableListUnits>
+            <SearchableListUnits height={70} unitState={props.unit}></SearchableListUnits>
           </>
         </Frame>
         <Frame height="half-screen" width={46.5}>
           <>
             <span className="title">Users</span>
-            <SearchableListUsers unitState={props.unit}></SearchableListUsers>
+            <SearchableListUsers height={70} unitState={props.unit}></SearchableListUsers>
           </>
         </Frame>
       </div>
@@ -38,7 +32,7 @@ function Home(props: HomeProps) {
         <Frame height="half-screen" width={95}>
           <>
             <span className="title">Assets</span>
-            <SearchableListAssets unitState={props.unit}></SearchableListAssets>
+            <SearchableListAssets height={70} unitState={props.unit}></SearchableListAssets>
           </>
         </Frame>
       </div>
