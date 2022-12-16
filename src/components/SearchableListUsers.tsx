@@ -1,11 +1,11 @@
 import { List, Avatar, Button, Spin } from "antd";
 import Search from "antd/es/input/Search";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useQuery } from "react-query";
 import { SearchableList } from "../interfaces/components/searchableList.interface";
 import { Unit } from "../interfaces/models/unit.interface";
 import { User } from "../interfaces/models/user.interface";
-import { getUsersData } from "../services/home";
+import { getUsersData } from "../services/entities";
 import { connect } from "react-redux";
 
 function SearchableListUsers(props: SearchableList) {

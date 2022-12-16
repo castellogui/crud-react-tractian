@@ -5,7 +5,7 @@ import { useQuery } from "react-query";
 import { SearchableList } from "../interfaces/components/searchableList.interface";
 import { Asset } from "../interfaces/models/asset.interface";
 import { Unit } from "../interfaces/models/unit.interface";
-import { getAssetsData, getUnitsData } from "../services/home";
+import { getAssetsData, getUnitsData } from "../services/entities";
 import { connect } from "react-redux";
 import { DownOutlined } from "@ant-design/icons";
 
