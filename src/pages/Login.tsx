@@ -14,6 +14,7 @@ import { authUser, getUserData } from "../services/login";
 import { User } from "../interfaces/models/user.interface";
 import { logUser } from "../store/actions";
 import { useNavigate } from "react-router";
+import { showMessage } from "../utils/MessageUtils";
 
 declare global {
   interface Window {
@@ -75,9 +76,13 @@ function Login(props: LoginProps) {
       password,
     };
 
-    authUser(data).then((response: Response) => {
-      handleToken(response.token, response.email);
-    });
+    authUser(data)
+      .then((response: Response) => {
+        handleToken(response.token, response.email);
+      })
+      .catch((err: AxiosError) => {
+        showMessage("error", undefined, "Failed to sign up!", "Email or password is wrong.");
+      });
   };
 
   const handleToken = (token: String, email: String) => {
@@ -86,8 +91,14 @@ function Login(props: LoginProps) {
         props.logUser(response);
         navigate("/home");
       })
-      .catch((err: AxiosError) => {
-        console.log(err);
+      .catch(async (err: AxiosError) => {
+        await showMessage(
+          "error",
+          undefined,
+          "Failed to get user data!",
+          "Try again later or call an administrator."
+        );
+        navigate("/");
       });
   };
 
