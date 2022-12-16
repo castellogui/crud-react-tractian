@@ -6,14 +6,14 @@ import { Input, Button } from "antd";
 import SearchableListUnits from "../components/SearchableListUnits";
 import SearchableListAssets from "../components/SearchableListAssets";
 
-interface UsersProps {
+interface UnitsProps {
   unit: Unit;
 }
 
-function Units(props: UsersProps) {
+function Units(props: UnitsProps) {
   const [unit, setUnit] = useState<Unit>();
 
-  function renderSelectUser() {
+  function renderSelectUnit() {
     return (
       <div className="flex m-auto">
         <span className="text-3xl text-black font-bold">Select a unit to edit.</span>
@@ -57,7 +57,7 @@ function Units(props: UsersProps) {
               <div className="w-[70%] h-[95%] px-4 relative">
                 <span className="font-bold text-black text-5xl absolute top-0">Edit Unit</span>
                 <div className="w-full h-full relative flex flex-col mt-10">
-                  {unit == undefined ? renderSelectUser() : renderEditInputs()}
+                  {unit == undefined ? renderSelectUnit() : renderEditInputs()}
                   <div style={{ visibility: unit != undefined ? "visible" : "hidden" }}>
                     <SearchableListAssets
                       buttonFunction={() => {}}

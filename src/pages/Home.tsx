@@ -4,7 +4,7 @@ import SearchableListUnits from "../components/SearchableListUnits";
 import SearchableListAssets from "../components/SearchableListAssets";
 import { connect } from "react-redux";
 import { Unit } from "../interfaces/models/unit.interface";
-import { getUsersData } from "../services/home";
+import { getUsersData } from "../services/entities";
 import { User } from "../interfaces/models/user.interface";
 
 interface HomeProps {
