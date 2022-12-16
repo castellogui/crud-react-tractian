@@ -120,8 +120,7 @@ function Users(props: UsersProps) {
       <div className="flex flex-row justify-center">
         <Frame height="full-screen" width={95}>
           <>
-            <span className="title">Units</span>
-            <div className="flex flex-row h-full justify-between relative">
+            <div className="flex flex-row h-full justify-between relative mt-4">
               <div className="w-[30%]">
                 <SearchableListUsers
                   buttonFunction={setUser}
