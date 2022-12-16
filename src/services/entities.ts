@@ -26,3 +26,12 @@ export async function getAssetsData(token: String) {
   });
   return await response.data;
 }
+
+export async function getCompaniesData(token: String) {
+  let response = await baseAxios.get("/companies/find", {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+  return await response.data;
+}
