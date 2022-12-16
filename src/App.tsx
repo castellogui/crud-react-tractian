@@ -6,6 +6,7 @@ import Navbar from "../src/components/Navbar";
 import Sidebar from "./components/Sidebar";
 import Login from "./pages/Login";
 import Units from "./pages/Units";
+import Companies from "./pages/Companies";
 
 function App() {
   const [visible, setVisible] = useState(false);
@@ -16,7 +17,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Login></Login>} />
         <Route path="/home" element={<Home></Home>} />
-        <Route path="/companies" element={<Home></Home>} />
+        <Route path="/companies" element={<Companies></Companies>} />
         <Route path="/units" element={<Units></Units>} />
         <Route path="/users" element={<Users></Users>} />
         <Route path="/assets" element={<Home></Home>} />
