@@ -17,7 +17,7 @@ export default function SearchableListUnits(props: SearchableList) {
 
   function filterDataByUnit(unitState: Unit, data: Array<Unit>) {
     return data.filter((unit: Unit) => {
-      if (unitState != undefined) {
+      if (unitState._id != "all") {
         return (
           (`${unit.name}`.toLowerCase().includes(searchTerm.toLowerCase()) ||
             `${unit.company.name}`.toLowerCase().includes(searchTerm.toLowerCase())) &&

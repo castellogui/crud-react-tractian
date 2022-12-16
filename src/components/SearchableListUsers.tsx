@@ -18,7 +18,7 @@ export default function SearchableListUsers(props: SearchableList) {
 
   function filterDataByUnit(unitState: Unit, data: Array<User>) {
     return data.filter((user: User) => {
-      if (unitState != undefined) {
+      if (unitState._id != "all") {
         return (
           (`${user.name} ${user.familyName}`.toLowerCase().includes(searchTerm.toLowerCase()) ||
             user.email.toLowerCase().includes(searchTerm.toLowerCase())) &&

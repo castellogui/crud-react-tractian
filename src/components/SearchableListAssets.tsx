@@ -18,7 +18,7 @@ export default function SearchableListAssets(props: SearchableList) {
 
   function filterDataByUnit(unitState: Unit, data: Array<Asset>) {
     return data.filter((asset: Asset) => {
-      if (unitState != undefined) {
+      if (unitState._id != "all") {
         return (
           (`${asset.name}`.toLowerCase().includes(searchTerm.toLowerCase()) ||
             `${asset.unit.name}`.toLowerCase().includes(searchTerm.toLowerCase()) ||
