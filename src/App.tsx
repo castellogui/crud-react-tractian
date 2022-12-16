@@ -4,6 +4,7 @@ import Users from "./pages/Users";
 import { useState } from "react";
 import Navbar from "../src/components/Navbar";
 import Sidebar from "./components/Sidebar";
+import Login from "./pages/Login";
 
 function App() {
   const [visible, setVisible] = useState(false);
@@ -12,6 +13,7 @@ function App() {
       <Navbar openSidebarFunction={setVisible}></Navbar>
       <Sidebar visible={visible} callbackClose={setVisible}></Sidebar>
       <Routes>
+        <Route path="/" element={<Login></Login>} />
         <Route path="/home" element={<Home></Home>} />
         <Route path="/companies" element={<Home></Home>} />
         <Route path="/units" element={<Home></Home>} />
