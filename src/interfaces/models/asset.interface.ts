@@ -11,7 +11,7 @@ export interface Asset {
     __v: number;
   };
   description: string;
-  image: string;
+  avatar: string;
   model: string;
   owner: {
     _id: string;

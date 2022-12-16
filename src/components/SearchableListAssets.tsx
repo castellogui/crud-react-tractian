@@ -1,4 +1,4 @@
-import { List, Button, Spin } from "antd";
+import { List, Button, Spin, Avatar } from "antd";
 import Search from "antd/es/input/Search";
 import { useState } from "react";
 import { useQuery } from "react-query";
@@ -47,6 +47,7 @@ function SearchableListAssets(props: SearchableList) {
               <List.Item.Meta
                 title={`${item.name}`}
                 description={`${item.unit.name} | ${item.status} | ${item.owner.name} | ${item.model}`}
+                avatar={<Avatar src={item.avatar}></Avatar>}
               />
               <div>
                 <Button type="primary" block style={{ backgroundColor: "#245ce4" }}>
