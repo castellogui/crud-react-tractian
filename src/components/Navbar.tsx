@@ -15,7 +15,10 @@ interface NavbarProps {
 
 function Navbar(props: NavbarProps) {
   const items: MenuProps["items"] = [];
-
+  items.push({
+    label: "All Units",
+    key: "all",
+  });
   units.map((unit) => {
     let unitOption = {
       label: unit.name,
