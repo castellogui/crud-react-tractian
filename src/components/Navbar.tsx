@@ -2,19 +2,22 @@ import { MenuOutlined, DownOutlined } from "@ant-design/icons";
 import Button from "antd/es/button";
 import { Dropdown, MenuProps, Space } from "antd";
 import { connect } from "react-redux";
-import { changeUnit } from "../store/actions";
+import { changeUnit, logOffUser } from "../store/actions";
 import { Unit } from "../interfaces/models/unit.interface";
 
 import units from "../assets/units.json";
+import { useNavigate } from "react-router";
 
 interface NavbarProps {
   userLogged: any;
   changeUnit: any;
+  logOffUser: any;
   unit: any;
   openSidebarFunction: Function;
 }
 
 function Navbar(props: NavbarProps) {
+  const navigate = useNavigate();
   const items: MenuProps["items"] = [];
   items.push({
     label: "All Units",
@@ -39,6 +42,11 @@ function Navbar(props: NavbarProps) {
   const menuProps = {
     items,
     onClick: handleMenuClick,
+  };
+
+  const logOff = () => {
+    props.logOffUser();
+    navigate("/");
   };
 
   function renderNav() {
@@ -69,7 +77,12 @@ function Navbar(props: NavbarProps) {
             </div>
             <div className="w-full h-full flex flex-row gap-3">
               <span className="w-full h-auto text-[#404040]">Account</span>
-              <span className="w-full h-auto text-[#404040]">Log off</span>
+              <span
+                className="w-full h-auto text-[#404040] cursor-pointer"
+                onClick={() => logOff()}
+              >
+                Log off
+              </span>
             </div>
           </div>
           <img
@@ -82,7 +95,7 @@ function Navbar(props: NavbarProps) {
     );
   }
 
-  return <>{props.userLogged._id == "" ? renderNav() : null}</>;
+  return <>{props.userLogged._id != "" ? renderNav() : null}</>;
 }
 
 const mapStateToProps = (state: any) => ({
@@ -92,6 +105,7 @@ const mapStateToProps = (state: any) => ({
 const mapDispatchToProps = (dispatch: any) => {
   return {
     changeUnit: (unit: Unit) => dispatch(changeUnit(unit)),
+    logOffUser: () => dispatch(logOffUser()),
   };
 };
 
