@@ -1,36 +1,42 @@
-import { MenuOutlined, UserOutlined, DownOutlined } from "@ant-design/icons";
+import { MenuOutlined, DownOutlined } from "@ant-design/icons";
 import Button from "antd/es/button";
 import { Dropdown, MenuProps, Space } from "antd";
+import { connect } from "react-redux";
+import { changeUnit } from "../store/actions";
+import { Unit } from "../interfaces/models/unit.interface";
 
-const items: MenuProps["items"] = [
-  {
-    label: "1st menu item",
-    key: "1124124124",
-  },
-  {
-    label: "2nd menu item",
-    key: "2",
-  },
-  {
-    label: "3rd menu item",
-    key: "3",
-  },
-];
-
-const handleMenuClick: MenuProps["onClick"] = (e) => {
-  console.log("click", e);
-};
-
-const menuProps = {
-  items,
-  onClick: handleMenuClick,
-};
+import units from "../assets/units.json";
 
 interface NavbarProps {
+  changeUnit: any;
+  unit: any;
   openSidebarFunction: Function;
 }
 
-export default function Navbar(props: NavbarProps) {
+function Navbar(props: NavbarProps) {
+  const items: MenuProps["items"] = [];
+
+  units.map((unit) => {
+    let unitOption = {
+      label: unit.name,
+      key: unit._id,
+    };
+    items.push(unitOption);
+  });
+
+  const handleMenuClick: MenuProps["onClick"] = (e) => {
+    let unitId = e.key;
+    let unitResult = units.filter((unit) => {
+      return unit._id == unitId;
+    });
+    props.changeUnit(unitResult[0]);
+  };
+
+  const menuProps = {
+    items,
+    onClick: handleMenuClick,
+  };
+
   return (
     <nav className="w-[100%] h-16 bg-white shadow-md flex flex-row items-center justify-between">
       <MenuOutlined
@@ -68,3 +74,12 @@ export default function Navbar(props: NavbarProps) {
     </nav>
   );
 }
+
+const mapStateToProps = (state: any) => ({ unit: state.unitState });
+const mapDispatchToProps = (dispatch: any) => {
+  return {
+    changeUnit: (unit: Unit) => dispatch(changeUnit(unit)),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Navbar);
