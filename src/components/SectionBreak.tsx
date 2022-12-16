@@ -11,7 +11,10 @@ export default function SectionBreak(props: SectionBreakProps) {
     <div className="barrier-container">
       <div className="barrier">
         {props.action ? (
-          <span onClick={props.actionFunction} style={{ cursor: "pointer" }}>
+          <span
+            onClick={props.actionFunction}
+            style={{ cursor: "pointer", marginBottom: "0.5rem" }}
+          >
             {props.text}
           </span>
         ) : (
