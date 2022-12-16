@@ -1,3 +1,38 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.barrier-container {
+  margin: 1rem auto;
+  width: 90%;
+}
+
+.barrier {
+  width: 100%;
+  height: min-content;
+  text-align: center;
+  font-size: 1rem;
+  position: relative;
+}
+
+.barrier::after {
+  content: "";
+  width: 100%;
+  border-bottom: solid 1px #57585c;
+  position: absolute;
+  left: 0;
+  top: 50%;
+  z-index: 1;
+}
+
+.barrier span {
+  background-color: #fff;
+  display: inline-block;
+  z-index: 3;
+  padding: 0 20px 0 20px;
+  color: #57585c;
+  position: relative;
+  font-family: calibri;
+  font-weight: lighter;
+  margin: 0;
+}
