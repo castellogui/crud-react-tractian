@@ -1,16 +1,11 @@
 .wave {
   scale: 1.2;
-  animation: moveWave 10s ease-in-out infinite alternate;
+  animation: moveWave 4s ease-in-out infinite alternate;
 }
 
 .wave2 {
   scale: 1.2;
-  animation: moveWave2 12s ease-in-out infinite alternate;
-}
-
-.wave3 {
-  scale: 1.2;
-  animation: moveWave 14s ease-in-out infinite alternate;
+  animation: moveWave2 8s ease-in-out infinite alternate;
 }
 
 @keyframes moveWave {
