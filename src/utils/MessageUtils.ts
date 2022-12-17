@@ -17,8 +17,32 @@ export async function showMessage(
     confirmButtonText: confirmButtonText,
     title: title,
     text: text,
-    footer: "<span>Contact administration.</span>",
+    footer: "<span>Contact of administration.</span>",
   };
 
   Swal.fire(options);
+}
+
+export async function confirmMessage(
+  iconColor = "#2562e9",
+  title: string,
+  text: string,
+  confirmButtonColor = "#2562e9",
+  confirmButtonText = "Okay",
+  denyButtonText: string,
+  denyButtonColor = "#b53737"
+) {
+  let options: SweetAlertOptions = {
+    icon: "warning",
+    iconColor: iconColor,
+    showDenyButton: true,
+    confirmButtonColor: confirmButtonColor,
+    confirmButtonText: confirmButtonText,
+    denyButtonText: denyButtonText,
+    denyButtonColor: denyButtonColor,
+    title: title,
+    text: text,
+  };
+
+  return Swal.fire(options);
 }
