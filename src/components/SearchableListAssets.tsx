@@ -5,12 +5,16 @@ import { useQuery } from "react-query";
 import { SearchableList } from "../interfaces/components/searchableList.interface";
 import { Asset } from "../interfaces/models/asset.interface";
 import { Unit } from "../interfaces/models/unit.interface";
-import { getAssetsData, getUnitsData } from "../services/entities";
+import { getAssetsData, getUnitsData } from "../services/getEntities";
 import { connect } from "react-redux";
 import { DownOutlined } from "@ant-design/icons";
 
 function SearchableListAssets(props: SearchableList) {
-  const { isLoading, data: assets } = useQuery<Asset[]>(
+  const {
+    isLoading,
+    data: assets,
+    refetch,
+  } = useQuery<Asset[]>(
     "getAssetsData",
     async () => {
       return await getAssetsData(props.userLogged.token!);
@@ -29,8 +33,10 @@ function SearchableListAssets(props: SearchableList) {
       enabled: props.userLogged.token! != undefined,
     }
   );
+
   const [searchTerm, setSearchTerm] = useState("");
   const dataFiltered = filterDataByUnit(props.unitState, assets);
+  const [assetId, setAssetId] = useState();
 
   function callbackSearchTerm(e: React.ChangeEvent<HTMLInputElement>) {
     setSearchTerm(e.target.value);
@@ -47,12 +53,17 @@ function SearchableListAssets(props: SearchableList) {
 
   const handleMenuClick: MenuProps["onClick"] = (e) => {
     let unitId = e.key;
-    //Request to change asset from unit
+    let asset = assetId;
+    props.triggerMove(unitId, asset, refetch);
   };
   const menuProps = {
     items,
     onClick: handleMenuClick,
   };
+
+  function setAssetObject(asset: Asset) {
+    props.buttonFunction(asset);
+  }
 
   function renderList() {
     return (
@@ -71,29 +82,42 @@ function SearchableListAssets(props: SearchableList) {
             marginTop: "0.8rem",
           }}
           dataSource={dataFiltered}
-          renderItem={(item) => (
-            <List.Item key={item.name}>
+          renderItem={(asset) => (
+            <List.Item key={asset.name}>
               <List.Item.Meta
-                title={`${item.name}`}
-                description={`${item.unit.name} | ${item.status} | ${item.owner.name} | ${item.model}`}
-                avatar={<Avatar src={item.avatar}></Avatar>}
+                title={`${asset.name}`}
+                description={`${asset.unit.name} | ${asset.status} | ${asset.owner.name} | ${asset.model}`}
+                avatar={<Avatar src={asset.avatar}></Avatar>}
               />
               <div className="flex flex-row gap-3">
-                {props.changeOption ? (
+                {/* {props.changeOption ? (
                   <>
-                    <Dropdown menu={menuProps}>
-                      <Button>
+                    <Dropdown menu={menuProps} trigger={["click"]}>
+                      <Button
+                        onClick={() => {
+                          setAssetId(asset._id);
+                        }}
+                      >
                         <Space>
-                          Units
+                          Change Unit
                           <DownOutlined />
                         </Space>
                       </Button>
                     </Dropdown>
                   </>
+                ) : null} */}
+                {props.editableItems ? (
+                  <Button
+                    onClick={() => {
+                      setAssetObject(asset);
+                    }}
+                    type="primary"
+                    block
+                    style={{ backgroundColor: "#245ce4" }}
+                  >
+                    Edit
+                  </Button>
                 ) : null}
-                <Button type="primary" block style={{ backgroundColor: "#245ce4" }}>
-                  Edit
-                </Button>
               </div>
             </List.Item>
           )}
@@ -105,6 +129,17 @@ function SearchableListAssets(props: SearchableList) {
   function filterDataByUnit(unitState: Unit, data: Array<Asset> | undefined) {
     if (data != undefined) {
       return data.filter((asset: Asset) => {
+        if (props.unitFilter != undefined) {
+          return (
+            (`${asset.name}`.toLowerCase().includes(searchTerm.toLowerCase()) ||
+              `${asset.unit.name}`.toLowerCase().includes(searchTerm.toLowerCase()) ||
+              `${asset.status}`.toLowerCase().includes(searchTerm.toLowerCase()) ||
+              `${asset.owner.name}`.toLowerCase().includes(searchTerm.toLowerCase()) ||
+              `${asset.model}`.toLowerCase().includes(searchTerm.toLowerCase())) &&
+            asset.unit.name == props.unitFilter
+          );
+        }
+
         if (unitState._id != "all") {
           return (
             (`${asset.name}`.toLowerCase().includes(searchTerm.toLowerCase()) ||
