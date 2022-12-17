@@ -1,98 +1,91 @@
 import Frame from "../components/Frame";
 import { connect } from "react-redux";
-import SearchableListUsers from "../components/SearchableListUsers";
+import SearchableListAssets from "../components/SearchableListAssets";
 import { Unit } from "../interfaces/models/unit.interface";
 import { useState } from "react";
-import { User } from "../interfaces/models/user.interface";
+import { Asset } from "../interfaces/models/asset.interface";
 import { DownOutlined } from "@ant-design/icons";
 import { Avatar, Input, Dropdown, Button, Space, MenuProps } from "antd";
-import companies from "../assets/companies.json";
 
-interface UsersProps {
+interface AssetsProps {
   unit: Unit;
 }
 
-function Users(props: UsersProps) {
-  const [user, setUser] = useState<User>();
+function Assets(props: AssetsProps) {
+  const [asset, setAsset] = useState<any>();
 
-  const items: MenuProps["items"] = [];
-
-  companies.map((company) => {
-    let unitOption = {
-      label: company.name,
-      key: company._id,
-    };
-    items.push(unitOption);
-  });
-
-  const handleMenuClick: MenuProps["onClick"] = (e) => {
-    let type = e.key;
-  };
-
-  const menuProps = {
-    items: [
-      {
-        label: "Administration",
-        key: "ROLE_ADMIN",
-      },
-      {
-        label: "User",
-        key: "ROLE_USER",
-      },
-    ],
-    onClick: handleMenuClick,
-  };
-
-  function renderSelectUser() {
+  function renderSelectAsset() {
     return (
       <div className="flex m-auto">
-        <span className="text-3xl text-black font-bold">Select a user to edit.</span>
+        <span className="text-3xl text-black font-bold">Select a asset to edit.</span>
       </div>
     );
   }
+
+  const items: MenuProps["items"] = [
+    {
+      label: "Running",
+      key: "Running",
+    },
+    {
+      label: "Alerting",
+      key: "Alerting",
+    },
+    {
+      label: "Stopped",
+      key: "Stopped",
+    },
+  ];
+
+  const handleMenuClick: MenuProps["onClick"] = (e) => {
+    let status = e.key;
+    setAsset({ ...asset, status });
+  };
+
+  const menuProps = {
+    items,
+    onClick: handleMenuClick,
+  };
 
   function renderEditInputs() {
     return (
       <>
         <div className="py-5 flex flex-row items-center">
           <div>
-            <Avatar src={user?.avatar} style={{ width: "300px", height: "300px" }}></Avatar>
+            <Avatar src={asset?.avatar} style={{ width: "300px", height: "300px" }}></Avatar>
           </div>
           <div className="px-5">
             <Input
-              defaultValue={user?.name}
+              value={asset?.name}
               placeholder="Name"
               style={{ width: "30%", margin: "0.5rem" }}
             ></Input>
             <Input
-              defaultValue={user?.familyName}
-              placeholder="Family Name"
+              value={asset?.description}
+              placeholder="Description"
               style={{ width: "30%", margin: "0.5rem" }}
             ></Input>
             <Input
-              defaultValue={user?.username}
-              placeholder="Username"
+              value={asset?.model}
+              placeholder="Model"
               style={{ width: "30%", margin: "0.5rem" }}
             ></Input>
             <Input
-              defaultValue={user?.email}
-              placeholder="Email"
+              value={asset?.owner.name}
+              placeholder="Owner"
               style={{ width: "30%", margin: "0.5rem" }}
             ></Input>
-            <Input
-              defaultValue={"password"}
-              type="password"
-              placeholder="Password"
-              style={{ width: "30%", margin: "0.5rem" }}
-            ></Input>
-            <Dropdown menu={menuProps} className="m-2 w-[30%]">
+            <Dropdown menu={menuProps} className="m-[0.5rem] w-[30%]">
               <Button>
                 <Space>
-                  Type
+                  Companies
                   <DownOutlined />
                 </Space>
               </Button>
             </Dropdown>
+            <Button type="primary" className="bg-[#2562e9] m-[0.5rem] w-[30%]">
+              Go to chart
+            </Button>
           </div>
         </div>
       </>
@@ -106,30 +99,30 @@ function Users(props: UsersProps) {
           <>
             <div className="flex flex-row h-full justify-between relative mt-4">
               <div className="w-[30%]">
-                <SearchableListUsers
+                <SearchableListAssets
                   editableItems={true}
-                  buttonFunction={setUser}
+                  buttonFunction={setAsset}
                   height={90}
                   unitState={props.unit}
-                ></SearchableListUsers>
+                ></SearchableListAssets>
               </div>
               <div className="w-[70%] h-[95%] px-4 relative">
-                <span className="font-bold text-black text-5xl absolute top-0">Edit User</span>
+                <span className="font-bold text-black text-5xl absolute top-0">Edit Asset</span>
                 <div className="w-full h-full relative flex flex-col justify-center">
-                  {user == undefined ? renderSelectUser() : renderEditInputs()}
+                  {asset == undefined ? renderSelectAsset() : renderEditInputs()}
                 </div>
                 {/* <Button
-                  style={{ visibility: user != undefined ? "visible" : "hidden" }}
+                  style={{ visibility: asset != undefined ? "visible" : "hidden" }}
                   className="absolute bottom-0
                    right-4 bg-[#20bd5a] text-white font-bold"
                 >
                   Save
                 </Button> */}
                 <Button
-                  style={{ visibility: user != undefined ? "visible" : "hidden" }}
+                  style={{ visibility: asset != undefined ? "visible" : "hidden" }}
                   className="absolute bottom-0 left-4 font-bold"
                   onClick={() => {
-                    setUser(undefined);
+                    setAsset(undefined);
                   }}
                 >
                   Back
@@ -147,4 +140,4 @@ const MapStateToProps = (state: any) => ({
   unit: state.unitState,
 });
 
-export default connect(MapStateToProps)(Users);
+export default connect(MapStateToProps)(Assets);

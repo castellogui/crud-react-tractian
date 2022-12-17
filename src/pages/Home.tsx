@@ -4,7 +4,7 @@ import SearchableListUnits from "../components/SearchableListUnits";
 import SearchableListAssets from "../components/SearchableListAssets";
 import { connect } from "react-redux";
 import { Unit } from "../interfaces/models/unit.interface";
-import { getUsersData } from "../services/entities";
+import { getUsersData } from "../services/getEntities";
 import { User } from "../interfaces/models/user.interface";
 
 interface HomeProps {
@@ -20,6 +20,7 @@ function Home(props: HomeProps) {
           <>
             <span className="title">Units</span>
             <SearchableListUnits
+              editableItems={false}
               buttonFunction={() => {}}
               height={70}
               unitState={props.unit}
@@ -30,6 +31,7 @@ function Home(props: HomeProps) {
           <>
             <span className="title">Users</span>
             <SearchableListUsers
+              editableItems={false}
               buttonFunction={() => {}}
               height={70}
               unitState={props.unit}
@@ -42,6 +44,7 @@ function Home(props: HomeProps) {
           <>
             <span className="title">Assets</span>
             <SearchableListAssets
+              editableItems={false}
               buttonFunction={() => {}}
               height={70}
               unitState={props.unit}
