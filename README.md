@@ -31,6 +31,8 @@ Ao selecionar a opção, o sistema filtra os registros para aqueles que correspo
 
 ![image](https://user-images.githubusercontent.com/78494604/208219424-3e2a36b0-e982-49b8-b3c3-41b55e118991.png)
 
+![image](https://user-images.githubusercontent.com/78494604/208219789-910e4154-9887-42f1-ada2-aba311252315.png)
+
 ### Redux
 Para realizar o gerenciamento de estado dos componentes de uma forma mais organizada, utilizei os pacotes Redux e React Redux.
 Sendo assim, quando o usuário faz o loggin, as suas informações são armazenadas na store, a variavel global do Redux.
@@ -41,8 +43,6 @@ para todos os outros componentes.
 
 A barra lateral conta com algumas opções de redirecionamento. Cada página é referente a uma entidade que, a principio, seria construido o CRUD. Então temos as companies,
 units, users e assets. Sendo as units e users pertencentes a entidade de company, e assets pertencentes a units.
-
-![image](https://user-images.githubusercontent.com/78494604/208219789-910e4154-9887-42f1-ada2-aba311252315.png)
 
 ## Company
 
