@@ -7,6 +7,7 @@ import Sidebar from "./components/Sidebar";
 import Login from "./pages/Login";
 import Units from "./pages/Units";
 import Companies from "./pages/Companies";
+import Assets from "./pages/Assets";
 
 function App() {
   const [visible, setVisible] = useState(false);
@@ -20,7 +21,7 @@ function App() {
         <Route path="/companies" element={<Companies></Companies>} />
         <Route path="/units" element={<Units></Units>} />
         <Route path="/users" element={<Users></Users>} />
-        <Route path="/assets" element={<Home></Home>} />
+        <Route path="/assets" element={<Assets></Assets>} />
         <Route path="/challenge" element={<Home></Home>} />
         <Route path="/me" element={<Home></Home>} />
       </Routes>
