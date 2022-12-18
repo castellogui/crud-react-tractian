@@ -64,14 +64,14 @@ export default function Sidebar(props: SidebarProps) {
             icon: <DatabaseFilled></DatabaseFilled>,
           },
           {
-            label: "Users",
-            key: "/users",
-            icon: <ContactsFilled></ContactsFilled>,
-          },
-          {
             label: "Assets",
             key: "/assets",
             icon: <AppstoreFilled></AppstoreFilled>,
+          },
+          {
+            label: "Users",
+            key: "/users",
+            icon: <ContactsFilled></ContactsFilled>,
           },
           {
             label: "About",
