@@ -1,6 +1,6 @@
 import Frame from "../components/Frame";
 import { connect } from "react-redux";
-import { Unit } from "../interfaces/models/unit.interface";
+import { Unit, UpdatedUnit } from "../interfaces/models/unit.interface";
 import { useState } from "react";
 import { Input, Button } from "antd";
 import SearchableListUnits from "../components/SearchableListUnits";
@@ -9,6 +9,7 @@ import { confirmMessage, showMessage } from "../utils/MessageUtils";
 import { SweetAlertResult } from "sweetalert2";
 import { editUnitData, moveAsset } from "../services/saveEntities";
 import { User } from "../interfaces/models/user.interface";
+import handleChange from "../utils/HandlesUtils";
 
 interface UnitsProps {
   unit: Unit;
@@ -16,15 +17,40 @@ interface UnitsProps {
 }
 
 function Units(props: UnitsProps) {
-  const [unit, setUnit] = useState<any>();
-  const [name, setName] = useState("");
-  const [zipCode, setZipCode] = useState("");
+  const [unit, setUnit] = useState<UpdatedUnit>();
 
   function renderSelectUnit() {
     return (
       <div className="flex m-auto">
         <span className="text-3xl text-black font-bold">Select a unit to edit.</span>
       </div>
+    );
+  }
+
+  function renderEditInputs() {
+    return (
+      <>
+        <div className="py-5 flex flex-row items-center">
+          <Input
+            name="name"
+            value={unit?.name}
+            onChange={(e) => {
+              handleChange(e, unit, setUnit);
+            }}
+            placeholder="Name"
+            style={{ width: "30%", margin: "0.5rem" }}
+          ></Input>
+
+          {/* <Input
+            defaultValue={unit?.zipCode}
+            onChange={(e) => {
+              setZipCode(e.target.value);
+            }}
+            placeholder="Name"
+            style={{ width: "30%", margin: "0.5rem" }}
+          ></Input> */}
+        </div>
+      </>
     );
   }
 
@@ -59,33 +85,7 @@ function Units(props: UnitsProps) {
     });
   };
 
-  function renderEditInputs() {
-    return (
-      <>
-        <div className="py-5 flex flex-row items-center">
-          <Input
-            defaultValue={unit?.name}
-            onChange={(e) => {
-              setName(e.target.value);
-            }}
-            placeholder="Name"
-            style={{ width: "30%", margin: "0.5rem" }}
-          ></Input>
-
-          {/* <Input
-            defaultValue={unit?.zipCode}
-            onChange={(e) => {
-              setZipCode(e.target.value);
-            }}
-            placeholder="Name"
-            style={{ width: "30%", margin: "0.5rem" }}
-          ></Input> */}
-        </div>
-      </>
-    );
-  }
-
-  async function saveUpdates() {
+  async function updateUnitInfo() {
     await confirmMessage(
       undefined,
       "Are you sure?",
@@ -97,8 +97,8 @@ function Units(props: UnitsProps) {
       if (result.isConfirmed) {
         try {
           let data = {
-            name: name,
-            zipCode: zipCode,
+            name: unit?.name,
+            zipCode: unit?.zipCode,
             companyId: unit?.company._id,
           };
           await editUnitData(props.userLogged.token, data, unit?._id);
@@ -153,7 +153,7 @@ function Units(props: UnitsProps) {
                   style={{ visibility: unit != undefined ? "visible" : "hidden" }}
                   className="absolute bottom-0
                    right-4 bg-[#20bd5a] text-white font-bold"
-                  onClick={saveUpdates}
+                  onClick={updateUnitInfo}
                 >
                   Save
                 </Button>
