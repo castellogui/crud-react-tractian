@@ -46,11 +46,11 @@ function SearchableListUsers(props: SearchableList) {
   function filterDataByUnit(unitState: Unit, data: Array<User> | undefined) {
     if (data != undefined) {
       return data.filter((user: User) => {
-        if (props.companyFilter != undefined) {
+        if (props.companyFilterName != undefined) {
           return (
             (`${user.name}`.toLowerCase().includes(searchTerm.toLowerCase()) ||
               `${user.company.name}`.toLowerCase().includes(searchTerm.toLowerCase())) &&
-            user.company.name == props.companyFilter
+            user.company.name == props.companyFilterName
           );
         }
         if (unitState._id != "all") {
@@ -126,7 +126,7 @@ function SearchableListUsers(props: SearchableList) {
                         }}
                       >
                         <Space>
-                          Companies
+                          Change company
                           <DownOutlined />
                         </Space>
                       </Button>

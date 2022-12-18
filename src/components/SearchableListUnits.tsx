@@ -94,7 +94,7 @@ function SearchableListUnits(props: SearchableList) {
                         }}
                       >
                         <Space>
-                          Companies
+                          Change company
                           <DownOutlined />
                         </Space>
                       </Button>
@@ -124,11 +124,11 @@ function SearchableListUnits(props: SearchableList) {
   function filterDataByUnit(unitState: Unit, data: Array<Unit> | undefined) {
     if (data != undefined) {
       return data.filter((unit: Unit) => {
-        if (props.companyFilter != undefined) {
+        if (props.companyFilterName != undefined) {
           return (
             (`${unit.name}`.toLowerCase().includes(searchTerm.toLowerCase()) ||
               `${unit.company.name}`.toLowerCase().includes(searchTerm.toLowerCase())) &&
-            unit.company.name == props.companyFilter
+            unit.company.name == props.companyFilterName
           );
         }
         if (unitState._id != "all") {

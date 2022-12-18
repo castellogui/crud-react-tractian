@@ -9,6 +9,8 @@ import { Company } from "../interfaces/models/company.interface";
 import { useState } from "react";
 
 function SearchableListCompanies(props: SearchableList) {
+  const [searchTerm, setSearchTerm] = useState("");
+
   const { isLoading, data: companies } = useQuery<Company[]>(
     "getCompaniesData",
     async () => {
@@ -19,13 +21,6 @@ function SearchableListCompanies(props: SearchableList) {
     }
   );
 
-  const [searchTerm, setSearchTerm] = useState("");
-  const dataFiltered = filterDataByUnit(props.unitState, companies);
-
-  function callbackSearchTerm(e: React.ChangeEvent<HTMLInputElement>) {
-    setSearchTerm(e.target.value);
-  }
-
   function filterDataByUnit(unitState: Unit, data: Array<Company> | undefined) {
     if (data != undefined) {
       return data.filter((company: Company) => {
@@ -34,8 +29,10 @@ function SearchableListCompanies(props: SearchableList) {
     }
   }
 
-  function setCompanyName(companyName: String) {
-    props.buttonFunctionName(companyName);
+  const dataFiltered = filterDataByUnit(props.unitState, companies);
+
+  function callbackSearchTerm(e: React.ChangeEvent<HTMLInputElement>) {
+    setSearchTerm(e.target.value);
   }
 
   function setCompanyObject(company: Company) {
@@ -66,7 +63,6 @@ function SearchableListCompanies(props: SearchableList) {
                 {props.editableItems ? (
                   <Button
                     onClick={() => {
-                      setCompanyName(company.name);
                       setCompanyObject(company);
                     }}
                     type="primary"
