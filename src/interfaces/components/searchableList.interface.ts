@@ -5,11 +5,10 @@ export interface SearchableList {
   triggerMove?: any;
   editableItems: boolean;
   changeOption?: boolean;
-  companyFilter?: string;
+  companyFilterName?: string;
   unitFilter?: string;
   userLogged?: any;
   unitState: Unit;
   height: number;
   buttonFunction: Function;
-  buttonFunctionName?: Function;
 }
