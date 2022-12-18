@@ -8,3 +8,11 @@ export interface Company {
   users: Array<User>;
   created_at: Date;
 }
+
+export interface UpdatedCompany {
+  _id?: string;
+  name?: string;
+  units?: Array<Unit>;
+  users?: Array<User>;
+  created_at?: Date;
+}
