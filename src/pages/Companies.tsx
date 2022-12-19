@@ -9,8 +9,8 @@ import { confirmMessage, showMessage } from "../utils/MessageUtils";
 import { editCompanyData, moveUnit, moveUser } from "../services/saveEntities";
 import { User } from "../interfaces/models/user.interface";
 import SearchableListUsers from "../components/SearchableListUsers";
-import { useEffect, useState } from "react";
-import handleChange from "../utils/HandlesUtils";
+import { useState } from "react";
+import { handleChangeInputElement } from "../utils/HandlesUtils";
 
 interface CompanyProps {
   userLogged: User;
@@ -36,7 +36,7 @@ function Companies(props: CompanyProps) {
             name="name"
             value={company?.name}
             onChange={(e) => {
-              handleChange(e, company, setCompany);
+              handleChangeInputElement(e, company, setCompany);
             }}
             placeholder="Name"
             style={{ width: "30%", margin: "0.5rem" }}

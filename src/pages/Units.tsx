@@ -9,7 +9,7 @@ import { confirmMessage, showMessage } from "../utils/MessageUtils";
 import { SweetAlertResult } from "sweetalert2";
 import { editUnitData, moveAsset } from "../services/saveEntities";
 import { User } from "../interfaces/models/user.interface";
-import handleChange from "../utils/HandlesUtils";
+import { handleChangeInputElement } from "../utils/HandlesUtils";
 
 interface UnitsProps {
   unit: Unit;
@@ -35,7 +35,7 @@ function Units(props: UnitsProps) {
             name="name"
             value={unit?.name}
             onChange={(e) => {
-              handleChange(e, unit, setUnit);
+              handleChangeInputElement(e, unit, setUnit);
             }}
             placeholder="Name"
             style={{ width: "30%", margin: "0.5rem" }}
