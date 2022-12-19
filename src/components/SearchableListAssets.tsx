@@ -36,7 +36,7 @@ function SearchableListAssets(props: SearchableList) {
 
   const [searchTerm, setSearchTerm] = useState("");
   const dataFiltered = filterDataByUnit(props.unitState, assets);
-  const [assetId, setAssetId] = useState();
+  const [selectedAssetId, setSelectedAssetId] = useState("");
 
   function callbackSearchTerm(e: React.ChangeEvent<HTMLInputElement>) {
     setSearchTerm(e.target.value);
@@ -52,9 +52,8 @@ function SearchableListAssets(props: SearchableList) {
   });
 
   const handleMenuClick: MenuProps["onClick"] = (e) => {
-    let unitId = e.key;
-    let asset = assetId;
-    props.triggerMove(unitId, asset, refetch);
+    let newUnitId = e.key;
+    props.triggerMove(newUnitId, selectedAssetId, refetch);
   };
   const menuProps = {
     items,
@@ -90,12 +89,12 @@ function SearchableListAssets(props: SearchableList) {
                 avatar={<Avatar src={asset.avatar}></Avatar>}
               />
               <div className="flex flex-row gap-3">
-                {/* {props.changeOption ? (
+                {props.changeOption ? (
                   <>
                     <Dropdown menu={menuProps} trigger={["click"]}>
                       <Button
                         onClick={() => {
-                          setAssetId(asset._id);
+                          setSelectedAssetId(asset._id);
                         }}
                       >
                         <Space>
@@ -105,7 +104,7 @@ function SearchableListAssets(props: SearchableList) {
                       </Button>
                     </Dropdown>
                   </>
-                ) : null} */}
+                ) : null}
                 {props.editableItems ? (
                   <Button
                     onClick={() => {

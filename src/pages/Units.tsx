@@ -41,20 +41,21 @@ function Units(props: UnitsProps) {
             style={{ width: "30%", margin: "0.5rem" }}
           ></Input>
 
-          {/* <Input
-            defaultValue={unit?.zipCode}
+          <Input
+            name="zipCode"
+            value={unit?.zipCode}
             onChange={(e) => {
-              setZipCode(e.target.value);
+              handleChangeInputElement(e, unit, setUnit);
             }}
             placeholder="Name"
             style={{ width: "30%", margin: "0.5rem" }}
-          ></Input> */}
+          ></Input>
         </div>
       </>
     );
   }
 
-  const moveAssetFromUnit = async (newUnityId: String, assetId: String, refatch: any) => {
+  const moveAssetFromUnit = async (newUnitId: String, assetId: String, refatch: any) => {
     await confirmMessage(
       undefined,
       "Are you sure?",
@@ -65,7 +66,7 @@ function Units(props: UnitsProps) {
     ).then(async (result: any) => {
       if (result.isConfirmed) {
         try {
-          let data = { assetId, newUnityId };
+          let data = { assetId, newUnitId };
           await moveAsset(props.userLogged.token, data, unit?._id);
           showMessage("success", undefined, "Changes were updated", "");
           refatch();
