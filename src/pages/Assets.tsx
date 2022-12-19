@@ -20,9 +20,10 @@ import { confirmMessage, showMessage } from "../utils/MessageUtils";
 import { handleChangeInputElement, handleChange } from "../utils/HandlesUtils";
 import { editAssetData } from "../services/saveEntities";
 import { UpdatedAsset } from "../interfaces/models/asset.interface";
+import { User } from "../interfaces/models/user.interface";
 
 interface AssetsProps {
-  userLogged: any;
+  userLogged: User;
   unit: Unit;
 }
 
@@ -42,10 +43,12 @@ function Assets(props: AssetsProps) {
       key: "Stopped",
     },
   ];
+
   const handleMenuClick: MenuProps["onClick"] = (e) => {
     let status = e.key;
     handleChange("status", status, asset, setAsset);
   };
+
   const menuProps = {
     items,
     onClick: handleMenuClick,
@@ -147,7 +150,6 @@ function Assets(props: AssetsProps) {
   }
 
   async function updateAssetInfo() {
-    console.log(asset?.avatar);
     await confirmMessage(
       undefined,
       "Are you sure?",
