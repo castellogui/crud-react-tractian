@@ -7,6 +7,6 @@ export function handleChangeInputElement(
   setState({ ...state, [target.name]: target.value });
 }
 
-export function handleChange(key: string, value: string, state: any, setState: any) {
+export function handleChange(key: string, value: string | string[], state: any, setState: any) {
   setState({ ...state, [key]: value });
 }
