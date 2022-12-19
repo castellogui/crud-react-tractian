@@ -1,6 +1,7 @@
 import baseAxios from "../axios/config";
 import { UpdatedAsset } from "../interfaces/models/asset.interface";
 import { UpdatedCompany } from "../interfaces/models/company.interface";
+import { UpdatedUser } from "../interfaces/models/user.interface";
 
 export async function editUnitData(token: String | undefined, data: any, id: string | undefined) {
   let response = await baseAxios.put(`/units/edit/${id}`, data, {
@@ -30,6 +31,19 @@ export async function editAssetData(
   id: string | undefined
 ) {
   let response = await baseAxios.put(`/assets/edit/${id}`, data, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+  return await response.data;
+}
+
+export async function editUserData(
+  token: String | undefined,
+  data: UpdatedUser,
+  id: string | undefined
+) {
+  let response = await baseAxios.put(`/users/edit/${id}`, data, {
     headers: {
       Authorization: `Bearer ${token}`,
     },
